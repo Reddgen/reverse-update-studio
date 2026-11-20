@@ -7,7 +7,9 @@ and trace unknown paths.
 ## Why this exists
 
 A personal project by **Reddgen** — a regular tinkerer and music maker who
-wanted to make release changes visible without a lab or a large team. Read
+started by watching update videos and asking how an old build hands off to a new
+one. The tool follows that handoff: match past and recent builds, map what is
+known, and give the unknown parts stable IDs. Read
 [How this started](ORIGIN.md).
 
 Music: [yelledbox.com](https://yelledbox.com)
@@ -142,6 +144,7 @@ MIT for original code. See [LICENSE](LICENSE) and
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 No game data, ROMs, ISOs, PDBs, or proprietary binaries are included.
+
 
 
 

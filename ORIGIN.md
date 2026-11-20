@@ -17,10 +17,32 @@ AI-assisted workflows made it possible to test ideas, build small experiments,
 and turn observation into something concrete without needing a lab or a large
 team. That is the spirit behind this project: applied curiosity, not authority.
 
-I built Reverse Update Studio because release changes are often hard to see.
-Two builds look similar from the outside, but the useful differences are buried
-in functions, symbols and source lines. The tool is my attempt to make those
-changes legible:
+## Why I built it
+
+I watched a lot of project and update videos. The same questions kept coming
+back:
+
+- When a program updates, what actually changed in the binary?
+- Which old function corresponds to which new one?
+- Which behavior is a known library path, and which is something nobody has
+  named yet?
+- Can I match the update I am being handed against the build I already have?
+- What is the handoff between the past build and the recent one — the part I
+  call the *handshake*?
+
+Most explanations stop at “it updated.” I wanted to follow the handoff.
+
+So I built a tool around that question. It matches past and recent builds using
+names, code fingerprints and normalized instructions. It maps what it can to
+source. It records known paths in a library. The parts that do not match become
+puzzle pieces with stable IDs, so they can be logged, counted and studied later
+instead of disappearing.
+
+I don’t have the whole answer. The tool is a way to ask the question carefully.
+
+Release changes are often hard to see. Two builds look similar from the
+outside, but the useful differences are buried in functions, symbols and source
+lines. The tool is my attempt to make those changes legible:
 
 - compare two builds;
 - show what changed;
