@@ -42,10 +42,10 @@ game into a native app.
 
 | Platform | File |
 |---|---|
-| Windows | `Reverse_Update_Studio_Windows_Portable_0.2.0.zip` |
+| Windows | `Reverse_Update_Studio_Windows_Portable_0.2.1.zip` |
 | Linux | `Reverse_Update_Studio-x86_64.AppImage` |
 | CI launcher | `ReverseUpdateStudio.exe` |
-| Source | `Reverse_Update_Studio_Source_v0.2.0.zip` |
+| Source | `Reverse_Update_Studio_Source_v0.2.1.zip` |
 | Licenses | `RU-Licenses.zip` |
 
 Verify with the accompanying `.sha256` files.

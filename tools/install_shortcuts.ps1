@@ -2,16 +2,17 @@ param([Parameter(Mandatory=$true)][string]$Target)
 $ErrorActionPreference = "Stop"
 $ws = New-Object -ComObject WScript.Shell
 $cmd = $env:ComSpec
+$launcher = Join-Path $Target "Reverse Update Studio.exe"
 $launch = Join-Path $Target "Launch.cmd"
 $uninstall = Join-Path $Target "Uninstall.cmd"
 $icon = Join-Path $Target "setup.ico"
 if (-not (Test-Path $icon)) { $icon = "$env:SystemRoot\System32\shell32.dll,137" }
 
-function New-Link($path, $arguments, $workdir, $description) {
+function New-Link($path, $target, $arguments, $workdir, $description) {
   $dir = Split-Path -Parent $path
   if (-not (Test-Path $dir)) { New-Item -ItemType Directory -Force -Path $dir | Out-Null }
   $sc = $ws.CreateShortcut($path)
-  $sc.TargetPath = $cmd
+  $sc.TargetPath = $target
   $sc.Arguments = $arguments
   $sc.WorkingDirectory = $workdir
   $sc.WindowStyle = 7
@@ -25,10 +26,18 @@ try {
   $desktop = [Environment]::GetFolderPath("Desktop")
   $startDir = Join-Path $env:APPDATA "Microsoft\Windows\Start Menu\Programs\Reverse Update Studio"
 
-  New-Link (Join-Path $desktop "Reverse Update Studio.lnk") "/c `"`"$launch`"`"" $Target "Reverse Update Studio"
-  New-Link (Join-Path $desktop "Uninstall Reverse Update Studio.lnk") "/c `"`"$uninstall`"`"" $Target "Uninstall Reverse Update Studio"
-  New-Link (Join-Path $startDir "Reverse Update Studio.lnk") "/c `"`"$launch`"`"" $Target "Reverse Update Studio"
-  New-Link (Join-Path $startDir "Uninstall Reverse Update Studio.lnk") "/c `"`"$uninstall`"`"" $Target "Uninstall Reverse Update Studio"
+  if (Test-Path $launcher) {
+    $appTarget = $launcher
+    $appArgs = ""
+  } else {
+    $appTarget = $cmd
+    $appArgs = "/c `"`"$launch`"`""
+  }
+
+  New-Link (Join-Path $desktop "Reverse Update Studio.lnk") $appTarget $appArgs $Target "Reverse Update Studio"
+  New-Link (Join-Path $desktop "Uninstall Reverse Update Studio.lnk") $cmd "/c `"`"$uninstall`"`"" $Target "Uninstall Reverse Update Studio"
+  New-Link (Join-Path $startDir "Reverse Update Studio.lnk") $appTarget $appArgs $Target "Reverse Update Studio"
+  New-Link (Join-Path $startDir "Uninstall Reverse Update Studio.lnk") $cmd "/c `"`"$uninstall`"`"" $Target "Uninstall Reverse Update Studio"
 
   Write-Host "Shortcuts verified: Desktop and Start Menu."
   exit 0

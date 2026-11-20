@@ -95,7 +95,7 @@ if (-not $env:RU_NO_SHORTCUTS -and ($Target -ieq $Canon)) {
   Write-Host "Skipping global shortcuts for this target."
 }
 
-$json = @{ version = "0.2.0"; installed = (Get-Date).ToString("s"); path = $Target } | ConvertTo-Json -Compress
+$json = @{ version = "0.2.1"; installed = (Get-Date).ToString("s"); path = $Target } | ConvertTo-Json -Compress
 Set-Content -LiteralPath (Join-Path $Target "install.json") -Value $json -Encoding ascii
 Write-Host "Install complete: $Target"
 exit 0

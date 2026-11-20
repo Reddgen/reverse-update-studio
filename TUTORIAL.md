@@ -2,7 +2,7 @@
 
 ## Install
 
-1. Download `Reverse_Update_Studio_Windows_Portable_0.2.0.zip`.
+1. Download `Reverse_Update_Studio_Windows_Portable_0.2.1.zip`.
 2. Extract it anywhere.
 3. Double-click **Setup.cmd**.
 4. Choose **Y** to start.

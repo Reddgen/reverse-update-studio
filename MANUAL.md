@@ -18,7 +18,7 @@ No administrator rights are needed for the normal install.
 1. Download:
 
 ```text
-Reverse_Update_Studio_Windows_Portable_0.2.0.zip
+Reverse_Update_Studio_Windows_Portable_0.2.1.zip
 ```
 
 2. Verify the SHA-256 from `Windows.sha256`.

@@ -1,21 +1,24 @@
-﻿# Windows Install
+# Windows Install
 
-## Recommended: Setup.cmd
+## Supported path
 
-The reliable install path is the portable ZIP plus **Setup.cmd**:
+Use the portable ZIP plus **Setup.cmd**. There is no supported Inno Setup EXE in
+this release.
 
-1. Download `Reverse_Update_Studio_Windows_Portable_0.2.0.zip`.
-2. Extract it.
-3. Double-click **Setup.cmd**.
-4. Choose **Y** to start.
+1. Download `Reverse_Update_Studio_Windows_Portable_0.2.1.zip`.
+2. Verify its SHA-256.
+3. Extract it.
+4. Double-click **Setup.cmd**.
+5. Choose **Y**.
 
 Setup:
 
 - copies to `%LOCALAPPDATA%\ReverseUpdateStudio`;
 - preserves `data\` on upgrade;
 - creates Desktop and Start Menu shortcuts;
+- points the app shortcut at `Reverse Update Studio.exe`;
 - creates an Uninstall shortcut;
-- needs no admin rights, registry keys or `%TEMP%` writes.
+- requires no admin rights or registry keys.
 
 Shortcuts:
 
@@ -28,56 +31,36 @@ Start Menu\Reverse Update Studio\
 Uninstall:
 
 ```text
-Start Menu â†’ Reverse Update Studio â†’ Uninstall Reverse Update Studio
+Start Menu -> Reverse Update Studio -> Uninstall Reverse Update Studio
 ```
 
-## Single supported installer
+## Package
 
-`Setup.cmd` inside the portable ZIP is the **only supported installer**.
-
-The old Inno Setup EXEs were moved to `reports/legacy/`. They are not part of the
-recommended release because silent install depends on Start Menu and `HKCU`
-uninstall-key access that this locked-down profile denies.
-
-| Package | Contents | Size |
-|---|---|---:|
-| `Reverse_Update_Studio_Windows_Portable_0.2.0.zip` | full + Setup.cmd | 548,994,674 |
-| `Reverse_Update_Studio_Windows_Portable_Lite_0.2.0.zip` | Lite + Setup.cmd | 73,927,120 |
+| File | Size | SHA-256 |
+|---|---:|---|
+| `Reverse_Update_Studio_Windows_Portable_0.2.1.zip` | 549,065,214 | `39e59bd540b0cc173e3c9419a28064186ff1a793aefc5af9f3d1fa8b4ad6b885` |
 
 ## Signing
 
-The launcher and package can be Authenticode-signed with
-`tools/sign_release.ps1`. Without a CA-issued certificate the signature is a
-development signature only; Windows will still warn.
+The launcher is **not CA-signed**. A development self-signed certificate can be
+used for testing, but Windows will warn.
 
-Full portable SHA-256: `66f25843b3cb894d744df1baf5a735ac88f456cf5acdcc36b0131bcb0fef1fb5`
+See [SIGNING.md](SIGNING.md).
 
-Lite portable SHA-256: `04c1b48101bd6f1c42810f42a3e40ee16a1213127ef8e9435b24384988b1fcd6`
+## Contents
 
-## What gets installed
+- Studio server and browser UI
+- Python 3.12 with Capstone, pefile, LIEF, androguard
+- Node.js 24
+- Ghidra 12.1.4 and Temurin JDK 21
+- REA 6.5.0
+- CLI, tools, tests and docs
+- `LICENSES/`, `THIRD_PARTY_NOTICES.md`, `ACKNOWLEDGEMENTS.md`, `ETHICS.md`
+- `MANUAL.md`, tutorial and format/update/path docs
 
-The full package installs the same tree as the full portable ZIP:
+No game ROMs, ISOs, PDBs or proprietary binaries are included.
 
-- `runtime\python` with Capstone, pefile, LIEF and androguard;
-- `runtime\node`;
-- Ghidra 12.1.4 + Temurin JDK 21.0.13;
-- REA 6.5.0;
-- Studio server, UI, CLI and tools.
+## Removing the legacy EXEs
 
-Data is written under the install folder in `data\`.
-
-## Build sources
-
-- `Setup.cmd`, `Uninstall.cmd`, `Launch.cmd`
-- `tools/install_shortcuts.ps1`
-- Inno scripts: `build/ReverseUpdateStudio.iss`, `build/ReverseUpdateStudioLite.iss`
-
-## Not included
-
-- Code signing certificate. Packages are unsigned; SmartScreen may warn.
-- Game files.
-- Android/iOS packages.
-
-
-
-
+Older Inno Setup EXEs were moved out of the release. They are not part of the
+v0.2.1 download.

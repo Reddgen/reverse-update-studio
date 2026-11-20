@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.2.1 — 2026-11-19
+
+### Changed
+
+- Windows shortcuts now launch the CI-built `Reverse Update Studio.exe` instead of `Launch.cmd`.
+- Licenses, third-party notices, acknowledgements, ethics guide and full manual are inside the Windows ZIP.
+- Version bumped to 0.2.1.
+
+### Known gaps
+
+- Launcher is still unsigned.
+- AppImage runtime not tested on real Linux.
+- Security quotas/CSV guard still pending.
+
 ## 0.2.0 — 2026-11-19
 
 ### Added

@@ -30,7 +30,7 @@ except Exception:
     probe_file = None
 
 APP_NAME = "Reverse Update Studio"
-APP_VERSION = "0.2.0"
+APP_VERSION = "0.2.1"
 ROOT = Path(__file__).resolve().parent
 BASE = ROOT.parent
 # In the portable bundle the server lives beside runtime/, tools/ and reports/.
