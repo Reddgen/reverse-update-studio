@@ -124,6 +124,20 @@ CI runs on Windows and Ubuntu for every push.
 Good first issues are labeled `good first issue`. Feedback can be submitted with
 the **Feedback** issue form.
 
+## Feedback
+
+Use the **Feedback** issue form:
+
+https://github.com/Reddgen/reverse-update-studio/issues/new?template=feedback.yml
+
+Tell us:
+
+- what you tried;
+- what worked;
+- what was confusing;
+- which OS and version.
+
+Do not attach game files, proprietary PDBs, ROMs or personal data.
 ## Credits
 
 Built with Ghidra, LIEF, androguard, Capstone, pefile, RomPatcher.js, REA,
@@ -143,4 +157,5 @@ MIT for original code. See [LICENSE](LICENSE) and
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 No game ROMs, ISOs, PDBs or proprietary binaries are included.
+
 
