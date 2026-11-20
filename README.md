@@ -103,7 +103,7 @@ python tests/smoke.py --base http://127.0.0.1:8765 --apk-a app.apk --apk-b app.a
 
 ## Documentation
 
-- [Tutorial](TUTORIAL.md)
+- [Full step-by-step manual](MANUAL.md)\n- [Manual translations](docs/manual/README.md)\n- [Tutorial](TUTORIAL.md)
 - [CLI](CLI.md)
 - [Format support](FORMAT_SUPPORT.md)
 - [Update system](UPDATE_SYSTEM.md)
@@ -135,6 +135,7 @@ MIT for original code. See [LICENSE](LICENSE) and
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 No game data, ROMs, ISOs, PDBs, or proprietary binaries are included.
+
 
 
 
