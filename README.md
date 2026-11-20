@@ -109,7 +109,7 @@ python tests/smoke.py --base http://127.0.0.1:8765 --apk-a app.apk --apk-b app.a
 - [Update system](UPDATE_SYSTEM.md)
 - [Path tracing](PATH_TRACE.md)
 - [Signing](SIGNING.md)\n- [SignPath application notes](SIGNPATH.md)
-- [Release status](RELEASE_STATUS.md)
+- [Release status](RELEASE_STATUS.md)\n- [Acknowledgements](ACKNOWLEDGEMENTS.md)
 
 ## Security
 
@@ -135,6 +135,7 @@ MIT for original code. See [LICENSE](LICENSE) and
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 No game data, ROMs, ISOs, PDBs, or proprietary binaries are included.
+
 
 
 
