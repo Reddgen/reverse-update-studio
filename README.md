@@ -13,6 +13,20 @@ known, and give the unknown parts stable IDs. Read
 [How this started](ORIGIN.md).
 
 Music: [yelledbox.com](https://yelledbox.com)
+## How it is different
+
+It is not “the best reverse-engineering tool.” It is a local workbench that
+connects release diff, source mapping, APK method diff, path tracing and update
+verification in one place.
+
+Other tools are deeper or more mature in specific areas:
+
+- Ghidra/IDA for interactive reverse engineering;
+- BinDiff/Diaphora for advanced function matching;
+- VirusTotal for reputation;
+- TUF for update security.
+
+See [How this is different](docs/DIFFERENCES.md).
 ## What it does
 
 - **PE/PDB Release Diff** â€” compare two Windows builds; matched, changed,
@@ -118,7 +132,7 @@ python tests/smoke.py --base http://127.0.0.1:8765 --apk-a app.apk --apk-b app.a
 - [Update system](UPDATE_SYSTEM.md)
 - [Path tracing](PATH_TRACE.md)
 - [Signing](SIGNING.md)\n- [SignPath application notes](SIGNPATH.md)
-- [Release status](RELEASE_STATUS.md)\n- [Acknowledgements](ACKNOWLEDGEMENTS.md)\n- [Plain-language concepts](docs/CONCEPTS.md)\n- [Acceptable use and ethics](ETHICS.md)
+- [Release status](RELEASE_STATUS.md)\n- [Acknowledgements](ACKNOWLEDGEMENTS.md)\n- [Plain-language concepts](docs/CONCEPTS.md)\n- [How this is different](docs/DIFFERENCES.md)\n- [Acceptable use and ethics](ETHICS.md)
 
 ## Security
 
@@ -144,6 +158,8 @@ MIT for original code. See [LICENSE](LICENSE) and
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 No game data, ROMs, ISOs, PDBs, or proprietary binaries are included.
+
+
 
 
 
