@@ -1,0 +1,32 @@
+name: Windows Launcher
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "launcher/**"
+      - ".github/workflows/windows.yml"
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build launcher
+        shell: powershell
+        run: |
+          New-Item -ItemType Directory -Force dist | Out-Null
+          & "$env:WINDIR\Microsoft.NET\Framework64\v4.0.30319\csc.exe" `
+            /nologo /target:winexe /out:dist\ReverseUpdateStudio.exe `
+            /reference:System.Windows.Forms.dll launcher\Launcher.cs
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          Get-FileHash dist\ReverseUpdateStudio.exe -Algorithm SHA256 |
+            Select-Object Hash,Path | Format-List
+          Get-ChildItem dist
+      - name: Upload launcher artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ReverseUpdateStudio-Windows-Launcher
+          path: |
+            dist/ReverseUpdateStudio.exe
