@@ -28,7 +28,7 @@ jobs:
           git archive --format=zip --prefix=ReverseUpdateStudio/ -o dist/Reverse_Update_Studio_Source_${{ github.ref_name }}.zip HEAD
           cd dist && sha256sum *.zip > SHA256SUMS
       - name: Attest provenance
-        uses: actions/attest-build-provenance@v2
+        uses: actions/attest-build-provenance@v4
         with:
           subject-path: dist/*.zip
       - uses: softprops/action-gh-release@v2
