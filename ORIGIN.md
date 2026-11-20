@@ -28,7 +28,7 @@ back:
   named yet?
 - Can I match the update I am being handed against the build I already have?
 - What is the handoff between the past build and the recent one — the part I
-  call the *handshake*?
+  was calling a *handshake*?
 
 Most explanations stop at “it updated.” I wanted to follow the handoff.
 
@@ -37,6 +37,12 @@ names, code fingerprints and normalized instructions. It maps what it can to
 source. It records known paths in a library. The parts that do not match become
 puzzle pieces with stable IDs, so they can be logged, counted and studied later
 instead of disappearing.
+
+I didn’t know the proper names for these ideas, and I’m not going to pretend I
+did. The closer terms are release diff, binary diff, function matching, pattern
+or signature libraries, and novelty detection. I called the handoff a
+“handshake” because that is what it felt like; a network handshake is a
+different thing. See [docs/CONCEPTS.md](docs/CONCEPTS.md).
 
 I don’t have the whole answer. The tool is a way to ask the question carefully.
 
