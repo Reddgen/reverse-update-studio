@@ -1,4 +1,4 @@
-# Reverse Update Studio
+﻿# Reverse Update Studio
 
 Local-first binary release analysis for Windows builds, APKs and PowerPC ELF
 files. Compare two releases, find changed functions, map them to source lines,
@@ -6,15 +6,15 @@ and trace unknown paths.
 
 ## What it does
 
-- **PE/PDB Release Diff** — compare two Windows builds; matched, changed,
+- **PE/PDB Release Diff** â€” compare two Windows builds; matched, changed,
   removed, added functions.
-- **Source mapping** — PDB file/line plus optional *Open in editor*.
-- **APK Diff** — compare DEX classes/methods with normalized instructions.
-- **PPC Diff** — GameCube ELF + Ghidra CSV comparison.
-- **Inspect** — PE, ELF, Mach-O, APK, IPA, JAR, WASM, ZIP.
-- **Trace** — match a path against a library; unknown runs get deterministic
+- **Source mapping** â€” PDB file/line plus optional *Open in editor*.
+- **APK Diff** â€” compare DEX classes/methods with normalized instructions.
+- **PPC Diff** â€” GameCube ELF + Ghidra CSV comparison.
+- **Inspect** â€” PE, ELF, Mach-O, APK, IPA, JAR, WASM, ZIP.
+- **Trace** â€” match a path against a library; unknown runs get deterministic
   puzzle IDs and a priority score.
-- **Updates** — AES-256-GCM payloads, Ed25519 manifests, chained apply/rollback.
+- **Updates** â€” AES-256-GCM payloads, Ed25519 manifests, chained apply/rollback.
 
 It does **not** run games, emulate consoles, or turn a game into a native app.
 
@@ -110,9 +110,18 @@ python tests/smoke.py --base http://127.0.0.1:8765 --apk-a app.apk --apk-b app.a
 
 Report security issues privately before opening a public issue.
 
+## Support
+
+If this project saves you time:
+
+https://buymeacoffee.com/yelledbox
+
+Donations are optional. They do not buy priority support or change the MIT
+license.
 ## License
 
 MIT for original code. See [LICENSE](LICENSE) and
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 No game data, ROMs, ISOs, PDBs, or proprietary binaries are included.
+
