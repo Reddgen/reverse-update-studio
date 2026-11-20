@@ -1,0 +1,51 @@
+# Build outputs and local installs
+build/
+runtime/
+reports/
+tmp/
+data/
+work/
+**/work/
+__pycache__/
+*.pyc
+*.pyo
+
+# Secrets and signing material
+*.key
+*.pem
+*.pfx
+*.p12
+*.cer
+!path_library.json
+!path_model.json
+updates_demo/
+keys/
+
+# Game data and large binaries
+*.exe
+*.dll
+*.pdb
+*.elf
+*.dol
+*.iso
+*.gcm
+*.wbfs
+*.apk
+*.ipa
+*.zip
+*.7z
+*.rar
+tools/test/
+*.bin
+*.rom
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local config
+.env
+*.local

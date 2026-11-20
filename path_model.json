@@ -1,0 +1,17 @@
+{
+  "features": [
+    "novelty",
+    "coverage",
+    "library_hits",
+    "reuse",
+    "unknown_count"
+  ],
+  "weights": {
+    "novelty": 0.775991,
+    "coverage": -1.143334,
+    "library_hits": -1.060533,
+    "reuse": 1.501133,
+    "unknown_count": 0.602563
+  },
+  "bias": -0.501158
+}

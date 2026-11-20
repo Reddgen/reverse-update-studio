@@ -1,0 +1,582 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1f3864">
+  <title>Reverse Update Studio</title>
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icon-180.png">
+  <link rel="stylesheet" href="/app.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="topbar">
+    <div class="brand">
+      <img src="/icon.svg" alt="" class="brand-mark">
+      <div>
+        <strong>Reverse Update</strong>
+        <span>Studio</span>
+      </div>
+    </div>
+    <div class="top-actions">
+      <span id="statusPill" class="pill"><span class="dot"></span><span>connecting</span></span>
+      <button id="helpBtn" class="icon-btn" title="Open tutorial" aria-label="Open tutorial">?</button>
+      <button id="themeBtn" class="icon-btn" title="Toggle theme" aria-label="Toggle theme">&#9680;</button>
+    </div>
+  </header>
+
+  <nav class="sidenav" aria-label="Main">
+    <button class="nav-item active" data-view="dashboard"><span class="nav-ico">&#9638;</span><span>Dashboard</span></button>
+    <button class="nav-item" data-view="tutorial"><span class="nav-ico">?</span><span>Start here</span></button>
+    <button class="nav-item" data-view="analyze"><span class="nav-ico">&#8981;</span><span>Analyze</span></button>
+    <button class="nav-item" data-view="trace"><span class="nav-ico">&#8767;</span><span>Trace</span></button>
+    <button class="nav-item" data-view="inspector"><span class="nav-ico">&#8982;</span><span>Inspector</span></button>
+    <button class="nav-item" data-view="patch"><span class="nav-ico">&#9672;</span><span>Patch</span></button>
+    <button class="nav-item" data-view="jobs"><span class="nav-ico">&#8801;</span><span>Jobs</span></button>
+    <button class="nav-item" data-view="about"><span class="nav-ico">i</span><span>About</span></button>
+    <div class="nav-foot">
+      <span>Local-first</span>
+      <small>Files stay on this machine unless you bind to LAN.</small>
+    </div>
+  </nav>
+
+  <main id="main">
+    <section class="view active" id="view-dashboard">
+      <div class="page-head">
+        <div>
+          <p class="eyebrow">WORKBENCH</p>
+          <h1>One view of the whole toolkit.</h1>
+          <p class="lede">Inspect a game binary, isolate GameCube code, rank functions, decompile with Ghidra, or apply a patch. Works in a desktop, tablet or phone browser.</p>
+        </div>
+        <button class="btn primary" data-goto="analyze">Start an analysis</button>
+      </div>
+
+      <div class="grid cards">
+        <article class="card stat">
+          <span class="label">OpenRCT2 functions</span>
+          <strong id="statFunctions">36,330</strong>
+          <small>v0.5.6 source release</small>
+        </article>
+        <article class="card stat">
+          <span class="label">Matched pairs</span>
+          <strong id="statMatched">35,850</strong>
+          <small>98.9% of the release</small>
+        </article>
+        <article class="card stat">
+          <span class="label">Changed</span>
+          <strong id="statChanged">3,909</strong>
+          <small>10.9% broad feature release</small>
+        </article>
+        <article class="card stat">
+          <span class="label">Ghidra PPC</span>
+          <strong>12,152</strong>
+          <small>Metroid Prime functions</small>
+        </article>
+      </div>
+
+      <div class="grid two">
+        <article class="card">
+          <div class="card-head"><h2>Toolchain</h2><span class="tag" id="toolTag">checking</span></div>
+          <ul class="checklist" id="toolList">
+            <li><span>Loadingâ€¦</span></li>
+          </ul>
+        </article>
+        <article class="card">
+          <div class="card-head"><h2>Recent jobs</h2><button class="link" data-goto="jobs">View all</button></div>
+          <div id="recentJobs" class="job-list compact"><p class="muted">No jobs yet.</p></div>
+        </article>
+      </div>
+
+      <article class="card note-card">
+        <h2>What this app is</h2>
+        <p>A local UI over the scripts in this repository. It does not upload files, does not execute games, and does not turn a GameCube game into a native APK. It analyzes code and patches, and it runs long jobs in the background.</p>
+        <div class="chips">
+          <span class="chip">PE / PDB</span><span class="chip">GameCube DOL</span><span class="chip">PPC ELF</span><span class="chip">Patches</span><span class="chip">PE triage</span>
+        </div>
+      </article>
+    </section>
+
+    <section class="view" id="view-tutorial">
+      <div class="page-head">
+        <div>
+          <p class="eyebrow">GUIDE</p>
+          <h1>From install to first diff.</h1>
+          <p class="lede">Six short paths: inspect a file, compare two builds, open source, compare APKs, PowerPC, and export. Everything runs on this machine.</p>
+        </div>
+        <button class="btn primary" data-goto="analyze">Start an analysis</button>
+      </div>
+
+      <article class="card tutorial-hero">
+        <div>
+          <h2>First run checklist</h2>
+          <p class="muted">The dashboard should show <strong>ready</strong>, <strong>Ghidra ready</strong> and <strong>REA ready</strong>. If it does, the engine is installed correctly.</p>
+        </div>
+        <div class="tutorial-checks">
+          <span id="tutReady" class="ok">ready</span><span id="tutGhidra">Ghidra</span><span id="tutRea">REA</span><span id="tutPython">Python 3.12</span>
+        </div>
+      </article>
+
+      <div class="tutorial-grid">
+        <article class="card tutorial-step">
+          <span class="step-num">01</span>
+          <h2>Inspect a file</h2>
+          <p>Drop in an EXE, DLL, ELF, Mach-O, APK, IPA, JAR or WASM. You get format, size, hash, capabilities and structure.</p>
+          <p class="muted">Try: <code>pyrogenesis.exe</code>, <code>metroid.elf</code>, <code>app.apk</code>.</p>
+          <button class="btn" data-goto="analyze">Open Analyze</button>
+        </article>
+
+        <article class="card tutorial-step">
+          <span class="step-num">02</span>
+          <h2>Compare two Windows builds</h2>
+          <p>Pick Build A and Build B folders with matching PDBs. Release Diff shows matched, changed, removed and added functions.</p>
+          <p class="muted">Use the same build twice as a control. Expected: 100% identical.</p>
+          <button class="btn" data-goto="analyze">Compare PE/PDB</button>
+        </article>
+
+        <article class="card tutorial-step">
+          <span class="step-num">03</span>
+          <h2>Go to the source line</h2>
+          <p>Set <strong>Source root</strong> to the repository that contains <code>source/</code>. Then press <strong>Open</strong> beside a changed function.</p>
+          <p class="muted">Example: <code>C:\src\0ad</code> maps to <code>source/ps/hotkey.cpp:133</code>.</p>
+          <button class="btn" data-goto="analyze">Set source root</button>
+        </article>
+
+        <article class="card tutorial-step">
+          <span class="step-num">04</span>
+          <h2>Compare two APKs</h2>
+          <p>APK Diff parses DEX, normalizes instructions, and reports changed, removed and added methods. Use one APK twice as a control.</p>
+          <p class="muted">Native <code>.so</code> libraries are counted but not yet diffed.</p>
+          <button class="btn" data-goto="analyze">Compare APKs</button>
+        </article>
+
+        <article class="card tutorial-step">
+          <span class="step-num">05</span>
+          <h2>GameCube / PowerPC</h2>
+          <p>PPC Diff needs an ELF and a Ghidra function CSV for each side. The same ELF twice is a valid control.</p>
+          <p class="muted">This is experimental; it is not a playable port.</p>
+          <button class="btn" data-goto="analyze">Open PPC Diff</button>
+        </article>
+
+        <article class="card tutorial-step">
+          <span class="step-num">06</span>
+          <h2>Export and revisit</h2>
+          <p>Every comparison produces a changed CSV and a full JSON. Jobs are saved across restarts and can be reopened from Jobs.</p>
+          <p class="muted">Downloads are generated locally; nothing is uploaded.</p>
+          <button class="btn" data-goto="jobs">Open Jobs</button>
+        </article>
+      </div>
+
+      <div class="grid two">
+        <article class="card">
+          <h2>If something fails</h2>
+          <ul class="tutorial-list">
+            <li><strong>Not ready:</strong> reopen the desktop shortcut; the bundled server may still be starting.</li>
+            <li><strong>PDB missing:</strong> Build A and Build B need matching PDB files next to the executables.</li>
+            <li><strong>Source Open does nothing:</strong> set Source root to the folder containing <code>source</code>, not to <code>source</code> itself.</li>
+            <li><strong>Port 8765 busy:</strong> close the old window, then reopen the shortcut.</li>
+          </ul>
+          <button class="btn" data-goto="about">Open About</button>
+        </article>
+        <article class="card">
+          <h2>What this app does not do</h2>
+          <ul class="tutorial-list">
+            <li>It does not run, emulate or play games.</li>
+            <li>It does not turn a GameCube game into an APK.</li>
+            <li>It does not recover original source for closed-source games.</li>
+            <li>APK and iOS code analysis is method-level, not full decompilation.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="view" id="view-analyze">
+      <div class="page-head">
+        <div>
+          <p class="eyebrow">ANALYZE</p>
+          <h1>Inspect, isolate, rank.</h1>
+          <p class="lede">Use an absolute path on this machine. Large ISOs are read in place; nothing is uploaded.</p>
+        </div>
+      </div>
+
+      <div class="grid two">
+        <article class="card">
+          <h2>Inspect a file</h2>
+          <form id="inspectForm" class="form">
+            <label>File path
+              <div class="path-row">
+                <input id="inspectPath" name="path" placeholder="E:\GAMES\Metroid Prime\Metroid Prime (USA) (Rev 2).iso" required>
+                <button type="button" class="btn upload-btn" data-upload-for="inspectPath">Upload</button>
+              </div>
+            </label>
+            <button class="btn primary" type="submit">Inspect</button>
+          </form>
+          <div id="inspectResult" class="result hidden"></div>
+        </article>
+
+        <article class="card">
+          <h2>Run an analysis</h2>
+          <form id="actionForm" class="form">
+            <label>Action
+              <select name="action" id="actionSelect">
+                <option value="structure">Rank functions (ELF)</option>
+                <option value="ghidra">Ghidra PPC functions (slow)</option>
+                <option value="dol">DOL / ISO â†’ ELF</option>
+                <option value="isolate">Isolate code (ISO/DOL)</option>
+                <option value="triage">PE triage (EXE/DLL)</option>
+              </select>
+            </label>
+            <label>Input path
+              <div class="path-row">
+                <input id="actionPath" name="path" placeholder="C:\...\metroid.elf" required>
+                <button type="button" class="btn upload-btn" data-upload-for="actionPath">Upload</button>
+              </div>
+            </label>
+            <p class="hint" id="actionHint">Ranks pointer tables and call targets. Fast on a prepared ELF.</p>
+            <button class="btn primary" type="submit">Run in background</button>
+          </form>
+          <div id="jobResult" class="result hidden"></div>
+        </article>
+      </div>
+
+      <article class="card">
+        <div class="card-head"><h2>Compare two builds</h2><span class="tag">PE / PDB</span></div>
+        <p class="muted">Pick two build folders, or two executables with matching PDBs. Architecture is detected automatically (x86 or x64).</p>
+        <form id="diffForm" class="form inspector-form">
+          <label>Build A
+            <input id="diffA" name="a" placeholder="C:\...\0.27.0\binaries\system" required>
+          </label>
+          <label>Build B
+            <input id="diffB" name="b" placeholder="C:\...\0.27.1\binaries\system" required>
+          </label>
+          <label>Label A
+            <input id="diffLabelA" name="label_a" value="A" placeholder="0.27.0">
+          </label>
+          <label>Label B
+            <input id="diffLabelB" name="label_b" value="B" placeholder="0.27.1">
+          </label>
+          <label>Source root <span class="hint-inline">optional, for Open buttons</span>
+            <input id="sourceRoot" name="source_root" placeholder="C:\src\0ad">
+          </label>
+          <button class="btn primary" type="submit">Compare builds</button>
+        </form>
+        <p id="diffError" role="alert" class="error hidden"></p>
+        <div id="diffResult" class="hidden"></div>
+      </article>
+
+      <article class="card">
+        <div class="card-head"><h2>Compare two GameCube builds</h2><span class="tag">PPC / ELF</span></div>
+        <p class="muted">PowerPC functions come from a Ghidra CSV. The two ELF files can be the same build for a control, or two real builds.</p>
+        <form id="ppcForm" class="form inspector-form">
+          <label>ELF A
+            <div class="path-row">
+              <input id="ppcElfA" name="elf_a" placeholder="C:\...\metroid.elf" required>
+              <button type="button" class="btn upload-btn" data-upload-for="ppcElfA">Upload</button>
+            </div>
+          </label>
+          <label>Ghidra CSV A
+            <div class="path-row">
+              <input id="ppcCsvA" name="csv_a" placeholder="C:\...\metroid_ghidra_functions.csv" required>
+              <button type="button" class="btn upload-btn" data-upload-for="ppcCsvA">Upload</button>
+            </div>
+          </label>
+          <label>ELF B
+            <div class="path-row">
+              <input id="ppcElfB" name="elf_b" placeholder="C:\...\metroid.elf" required>
+              <button type="button" class="btn upload-btn" data-upload-for="ppcElfB">Upload</button>
+            </div>
+          </label>
+          <label>Ghidra CSV B
+            <div class="path-row">
+              <input id="ppcCsvB" name="csv_b" placeholder="C:\...\metroid_ghidra_functions.csv" required>
+              <button type="button" class="btn upload-btn" data-upload-for="ppcCsvB">Upload</button>
+            </div>
+          </label>
+          <label>Label A
+            <input id="ppcLabelA" name="label_a" value="A">
+          </label>
+          <label>Label B
+            <input id="ppcLabelB" name="label_b" value="B">
+          </label>
+          <button class="btn primary" type="submit">Compare PPC builds</button>
+        </form>
+        <p id="ppcError" role="alert" class="error hidden"></p>
+        <div id="ppcResult" class="hidden"></div>
+      </article>
+
+      <article class="card">
+        <div class="card-head">
+          <div>
+            <p class="eyebrow">ANDROID</p>
+            <h2>Compare two APKs</h2>
+          </div>
+          <span class="tag">APK / DEX</span>
+        </div>
+        <p class="muted">Compares classes and methods by name, prototype and normalized DEX instructions. Use two release APKs, or the same APK as a control.</p>
+        <form id="apkForm" class="form inspector-form">
+          <label>APK A
+            <div class="path-row">
+              <input id="apkA" name="a" placeholder="C:\...\app-old.apk" required>
+              <button type="button" class="btn upload-btn" data-upload-for="apkA">Upload</button>
+            </div>
+          </label>
+          <label>APK B
+            <div class="path-row">
+              <input id="apkB" name="b" placeholder="C:\...\app-new.apk" required>
+              <button type="button" class="btn upload-btn" data-upload-for="apkB">Upload</button>
+            </div>
+          </label>
+          <label>Label A
+            <input id="apkLabelA" name="label_a" value="A">
+          </label>
+          <label>Label B
+            <input id="apkLabelB" name="label_b" value="B">
+          </label>
+          <button class="btn primary" type="submit">Compare APKs</button>
+        </form>
+        <p id="apkError" role="alert" class="error hidden"></p>
+        <div id="apkResult" class="hidden"></div>
+      </article>
+
+      <article class="card">
+        <div class="card-head"><h2>Long-running jobs</h2><span class="tag">polling</span></div>
+        <p class="muted">Structure scans and isolation can take seconds to minutes. The server queues them and the page polls for the result.</p>
+        <div id="analyzeJobs" class="job-list"><p class="muted">No jobs yet.</p></div>
+      </article>
+    </section>
+
+    <section class="view" id="view-trace">
+      <div class="page-head">
+        <div>
+          <p class="eyebrow">TRACE</p>
+          <h1>Follow the path. Name the unknowns.</h1>
+          <p class="lede">Match a sequence against the path library. Unknown runs become reusable puzzle pieces with stable IDs and a priority score.</p>
+        </div>
+        <button class="btn primary" data-goto="analyze">Back to Analyze</button>
+      </div>
+
+      <article class="card">
+        <div class="card-head"><h2>Trace a path</h2><span class="tag">library + model</span></div>
+        <form id="traceForm" class="form">
+          <label>Nodes, comma or newline separated
+            <textarea id="traceNodes" name="nodes" rows="4" placeholder="LoadConfig, ResolvePath, ParseXML, ApplyConfig, UnknownA, UnknownB">LoadConfig, ResolvePath, ParseXML, ApplyConfig, UnknownA, UnknownB, Serialize, WriteFile, Flush</textarea>
+          </label>
+          <button class="btn primary" type="submit">Trace and score</button>
+        </form>
+        <p id="traceError" class="error hidden" role="alert"></p>
+        <div id="traceResult" class="hidden"></div>
+      </article>
+
+      <article class="card">
+        <div class="card-head"><h2>Puzzle catalog</h2><button class="btn" id="puzzleRefresh" type="button">Refresh</button></div>
+        <div id="puzzleList" class="job-list"><p class="muted">No puzzle pieces yet.</p></div>
+      </article>
+    </section>
+
+    <section class="view" id="view-inspector">
+      <div class="page-head">
+        <div>
+          <p class="eyebrow">INSPECTOR</p>
+          <h1>Context at an address.</h1>
+          <p class="lede">Load a Ghidra function, see its boundaries, direct calls, callers, disassembly and any saved pseudocode. This is the â€œper cursorâ€ view.</p>
+        </div>
+      </div>
+
+      <article class="card">
+        <form id="inspectorForm" class="form inspector-form">
+          <label>PowerPC ELF
+            <div class="path-row">
+              <input id="inspectorElf" name="elf" placeholder="C:\...\metroid.elf" required>
+              <button type="button" class="btn upload-btn" data-upload-for="inspectorElf">Upload</button>
+            </div>
+          </label>
+          <label>Ghidra function CSV <span class="hint-inline">optional if a recent run exists</span>
+            <div class="path-row">
+              <input id="inspectorCsv" name="csv" placeholder="C:\...\functions.csv">
+              <button type="button" class="btn upload-btn" data-upload-for="inspectorCsv">Upload</button>
+            </div>
+          </label>
+          <label>Address
+            <input id="inspectorAddress" name="address" value="0x80003140" placeholder="0x80003140" required>
+          </label>
+          <button class="btn primary" type="submit">Load context</button>
+        </form>
+      </article>
+
+      <p id="inspectorError" role="alert" class="error hidden"></p>
+      <div id="inspectorResult" class="hidden">
+        <div class="grid two">
+          <article class="card" id="inspectorMeta"></article>
+          <article class="card" id="inspectorLinks"></article>
+        </div>
+        <article class="card" id="inspectorPseudoCard">
+          <div class="card-head"><h2>Pseudocode</h2><span class="tag" id="pseudoTag">not found</span></div>
+          <div id="inspectorPseudo"></div>
+        </article>
+        <article class="card">
+          <div class="card-head"><h2>Disassembly</h2><span class="tag" id="disasmTag"></span></div>
+          <div id="inspectorDisasm"></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="view" id="view-patch">
+      <div class="page-head">
+        <div>
+          <p class="eyebrow">PATCH</p>
+          <h1>Apply or create.</h1>
+          <p class="lede">RomPatcher.js runs locally. Supported: IPS, UPS, BPS, PPF, xdelta and more. The output file must not already exist.</p>
+        </div>
+      </div>
+
+      <div class="grid two">
+        <article class="card">
+          <h2>Apply a patch</h2>
+          <form id="applyForm" class="form">
+            <label>Clean file
+              <div class="path-row">
+                <input id="applyClean" name="clean" placeholder="C:\...\clean.gba" required>
+                <button type="button" class="btn upload-btn" data-upload-for="applyClean">Upload</button>
+              </div>
+            </label>
+            <label>Patch file
+              <div class="path-row">
+                <input id="applyPatch" name="patch" placeholder="C:\...\patch.ups" required>
+                <button type="button" class="btn upload-btn" data-upload-for="applyPatch">Upload</button>
+              </div>
+            </label>
+            <label>Output file
+              <input name="output" placeholder="C:\...\patched.gba" required>
+            </label>
+            <button class="btn primary" type="submit">Apply patch</button>
+          </form>
+        </article>
+
+        <article class="card">
+          <h2>Create a patch</h2>
+          <form id="createForm" class="form">
+            <label>Original file
+              <div class="path-row">
+                <input id="createOriginal" name="original" placeholder="C:\...\original.iso" required>
+                <button type="button" class="btn upload-btn" data-upload-for="createOriginal">Upload</button>
+              </div>
+            </label>
+            <label>Modified file
+              <div class="path-row">
+                <input id="createModified" name="modified" placeholder="C:\...\modified.iso" required>
+                <button type="button" class="btn upload-btn" data-upload-for="createModified">Upload</button>
+              </div>
+            </label>
+            <label>Format
+              <select name="format">
+                <option>ips</option><option selected>bps</option><option>ups</option><option>ppf</option><option>aps</option><option>rup</option><option>ebp</option>
+              </select>
+            </label>
+            <label>Output patch
+              <input name="output" placeholder="C:\...\changes.bps" required>
+            </label>
+            <button class="btn primary" type="submit">Create patch</button>
+          </form>
+        </article>
+      </div>
+
+      <article class="card">
+        <h2>Recent patch jobs</h2>
+        <div id="patchJobs" class="job-list"><p class="muted">No patch jobs yet.</p></div>
+      </article>
+    </section>
+
+    <section class="view" id="view-jobs">
+      <div class="page-head">
+        <div>
+          <p class="eyebrow">JOBS</p>
+          <h1>Background queue.</h1>
+          <p class="lede">Every run returns a job id. Results persist across restarts in the local data folder.</p>
+        </div>
+        <button class="btn" id="refreshJobs">Refresh</button>
+      </div>
+      <article class="card">
+        <div id="allJobs" class="job-list"><p class="muted">No jobs yet.</p></div>
+      </article>
+      <article class="card hidden" id="jobDetailCard">
+        <div id="jobDetail" class="result hidden"></div>
+      </article>
+    </section>
+
+    <section class="view" id="view-about">
+      <div class="page-head">
+        <div>
+          <p class="eyebrow">ABOUT</p>
+          <h1>Local-first, cross-platform.</h1>
+          <p class="lede">A responsive web front end to the Reverse Update toolkit. One codebase for Windows, macOS, Linux, Android and iPadOS browsers.</p>
+        </div>
+      </div>
+      <div class="grid two">
+        <article class="card">
+          <h2>Deployment</h2>
+          <ul class="plain">
+            <li><strong>Desktop:</strong> run the server, open the local URL.</li>
+            <li><strong>Tablet / phone:</strong> open the LAN URL in the browser and add to home screen.</li>
+            <li><strong>No cloud:</strong> files are read from the host filesystem.</li>
+            <li><strong>No native APK:</strong> this is a web app; native shells are a later packaging step.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h2>Boundaries</h2>
+          <ul class="plain">
+            <li>Static analysis only; it does not execute game binaries.</li>
+            <li>No DRM, anti-cheat or signature bypass.</li>
+            <li>Ghidra/REA are optional and installed separately.</li>
+            <li>Analysis is not a native port.</li>
+          </ul>
+        </article>
+      </div>
+      <article class="card">
+        <h2>0 A.D. release corpus</h2>
+        <p class="muted">A second PE/PDB corpus with a real release chain.</p>
+        <dl class="kv">
+          <dt>0.27.0</dt><dd>16,308 functions</dd>
+          <dt>0.27.1</dt><dd>146 changed functions from 0.27.0</dd>
+          <dt>0.28.0 win32</dt><dd>15,328 functions; 7,378 changed from 0.27.1</dd>
+          <dt>0.28.0 win64</dt><dd>33,047 functions; separate architecture</dd>
+        </dl>
+      </article>
+      <article class="card">
+        <h2>Run it</h2>
+        <pre class="code">python studio/server.py --port 8765
+# optional: open the browser automatically
+python studio/server.py --port 8765 --open
+# tablet/phone on the same trusted LAN
+python studio/server.py --host 0.0.0.0 --port 8765</pre>
+        <p class="muted">Binding to <code>0.0.0.0</code> exposes the app to your network. Use a trusted LAN only.</p>
+      </article>
+    </section>
+  </main>
+
+  <nav class="bottomnav" aria-label="Mobile">
+    <button class="nav-item active" data-view="dashboard"><span aria-hidden="true">&#9638;</span><small>Home</small></button>
+    <button class="nav-item" data-view="tutorial"><span aria-hidden="true">?</span><small>Start</small></button>
+    <button class="nav-item" data-view="analyze"><span aria-hidden="true">&#8981;</span><small>Analyze</small></button>
+    <button class="nav-item" data-view="trace"><span aria-hidden="true">&#8767;</span><small>Trace</small></button>
+    <button class="nav-item" data-view="inspector"><span aria-hidden="true">&#8982;</span><small>Inspect</small></button>
+    <button class="nav-item" data-view="patch"><span aria-hidden="true">&#9672;</span><small>Patch</small></button>
+    <button class="nav-item" data-view="jobs"><span aria-hidden="true">&#8801;</span><small>Jobs</small></button>
+  </nav>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="pinGate" class="pin-gate hidden">
+    <div class="pin-box">
+      <p class="eyebrow">LOCKED</p>
+      <h2>PIN required</h2>
+      <p class="muted">This Studio is exposed on the network. Enter the PIN shown on the host console.</p>
+      <label for="pinInput" class="sr-only">PIN</label>
+      <input id="pinInput" type="password" inputmode="numeric" autocomplete="current-password" placeholder="PIN">
+      <button id="pinBtn" class="btn primary" type="button">Unlock</button>
+      <p id="pinError" role="alert" aria-live="assertive" class="error hidden"></p>
+    </div>
+  </div>
+  <script src="/app.js"></script>
+</body>
+</html>
+

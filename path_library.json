@@ -1,0 +1,10 @@
+{
+  "name": "reverse-update-path-library",
+  "version": 1,
+  "paths": [
+    {"id": "lib_config_load", "name": "Config load", "sequence": ["LoadConfig", "ResolvePath", "ParseXML", "ApplyConfig"], "tags": ["config"], "confidence": 0.95},
+    {"id": "lib_net_init", "name": "Network init", "sequence": ["InitSockets", "Bind", "Listen", "Accept"], "tags": ["network"], "confidence": 0.9},
+    {"id": "lib_save", "name": "Save file", "sequence": ["Serialize", "WriteFile", "Flush"], "tags": ["io"], "confidence": 0.9},
+    {"id": "lib_pdb", "name": "PDB load", "sequence": ["OpenPdb", "ReadStream", "BuildIndex"], "tags": ["pdb"], "confidence": 0.85}
+  ]
+}
