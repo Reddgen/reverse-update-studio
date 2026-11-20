@@ -4,6 +4,13 @@ Local-first binary release analysis for Windows builds, APKs and PowerPC ELF
 files. Compare two releases, find changed functions, map them to source lines,
 and trace unknown paths.
 
+## Why this exists
+
+A personal project by **Reddgen** — a regular tinkerer and music maker who
+wanted to make release changes visible without a lab or a large team. Read
+[How this started](ORIGIN.md).
+
+Music: [yelledbox.com](https://yelledbox.com)
 ## What it does
 
 - **PE/PDB Release Diff** â€” compare two Windows builds; matched, changed,
@@ -135,6 +142,7 @@ MIT for original code. See [LICENSE](LICENSE) and
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 No game data, ROMs, ISOs, PDBs, or proprietary binaries are included.
+
 
 
 
