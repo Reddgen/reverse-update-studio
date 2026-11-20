@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this project, cite it as below."
+title: "Reverse Update Studio"
+abstract: "Local-first release diff for PE/PDB, APK/DEX and PPC ELF, with source mapping, path tracing and signed update verification."
+authors:
+  - alias: Reddgen
+    name: "Reddgen"
+version: "0.2.0"
+date-released: "2026-11-19"
+license: MIT
+repository-code: "https://github.com/Reddgen/reverse-update-studio"
+url: "https://github.com/Reddgen/reverse-update-studio"
+keywords:
+  - reverse-engineering
+  - binary-analysis
+  - release-diff
+  - pdb
+  - apk
+  - ghidra

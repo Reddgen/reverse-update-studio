@@ -1,7 +1,7 @@
 ﻿# Reverse Update Studio
 
 [![CI](https://github.com/Reddgen/reverse-update-studio/actions/workflows/ci.yml/badge.svg)](https://github.com/Reddgen/reverse-update-studio/actions/workflows/ci.yml)
-[![Windows Launcher](https://github.com/Reddgen/reverse-update-studio/actions/workflows/windows.yml/badge.svg)](https://github.com/Reddgen/reverse-update-studio/actions/workflows/windows.yml)
+[![Windows Launcher](https://github.com/Reddgen/reverse-update-studio/actions/workflows/windows.yml/badge.svg)](https://github.com/Reddgen/reverse-update-studio/actions/workflows/windows.yml)\n[![CodeQL](https://github.com/Reddgen/reverse-update-studio/actions/workflows/codeql.yml/badge.svg)](https://github.com/Reddgen/reverse-update-studio/actions/workflows/codeql.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Release](https://img.shields.io/github/v/release/Reddgen/reverse-update-studio)](https://github.com/Reddgen/reverse-update-studio/releases)
 
@@ -111,7 +111,7 @@ See [RELEASE_STATUS.md](RELEASE_STATUS.md).
 - [Signing](SIGNING.md)
 - [SignPath notes](SIGNPATH.md)
 - [Acknowledgements](ACKNOWLEDGEMENTS.md)
-- [Acceptable use and ethics](ETHICS.md)\n- [Roadmap](ROADMAP.md)\n- [Contributing](CONTRIBUTING.md)\n- [Support](SUPPORT.md)
+- [Acceptable use and ethics](ETHICS.md)\n- [Roadmap](ROADMAP.md)\n- [Changelog](CHANGELOG.md)\n- [Citation](CITATION.cff)\n- [Code of conduct](CODE_OF_CONDUCT.md)\n- [Contributing](CONTRIBUTING.md)\n- [Support](SUPPORT.md)
 
 ## Development
 
@@ -157,5 +157,6 @@ MIT for original code. See [LICENSE](LICENSE) and
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 No game ROMs, ISOs, PDBs or proprietary binaries are included.
+
 
 
