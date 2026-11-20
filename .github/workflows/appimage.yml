@@ -25,7 +25,7 @@ jobs:
         run: bash linux/build_appimage.sh
       - name: Hash
         run: sha256sum reports/Reverse_Update_Studio-x86_64.AppImage | tee reports/AppImage.sha256
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: ReverseUpdateStudio-Linux-AppImage
           path: |
