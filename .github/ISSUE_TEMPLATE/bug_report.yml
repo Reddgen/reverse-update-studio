@@ -1,0 +1,55 @@
+name: Bug report
+description: Something failed or behaved incorrectly
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not upload proprietary binaries, PDBs, ROMs or personal data.
+        For security issues, use SECURITY.md instead.
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      placeholder: "0.2.0"
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: OS
+      placeholder: "Windows 10 19045 / Windows 11 / Ubuntu 24.04"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior / error
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log lines
+      description: Redact paths and personal data.
+      render: text
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety
+      options:
+        - label: I removed game data, PDBs, ROMs and personal information.
+          required: true

@@ -1,0 +1,44 @@
+name: Feature request
+description: Suggest an improvement
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What are you trying to do that is hard today?
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: Proposed change
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Installer
+        - UI
+        - PE/PDB
+        - APK
+        - PPC
+        - Trace
+        - Updates
+        - CLI
+        - Docs
+        - Other
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Scope
+      options:
+        - label: This request does not involve DRM bypass, anti-cheat bypass, malware, cheating or ROM distribution.
+          required: true

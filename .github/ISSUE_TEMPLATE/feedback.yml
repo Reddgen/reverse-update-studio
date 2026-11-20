@@ -1,0 +1,67 @@
+name: Feedback
+description: Tell us what worked, what didn't, or what is confusing
+title: "[Feedback]: "
+labels: ["feedback"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include game ROMs, proprietary PDBs, personal data or security vulnerabilities.
+        For vulnerabilities use the private security process.
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      placeholder: "0.2.0"
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: OS
+      placeholder: "Windows 10 19045, Windows 11, Ubuntu 24.04"
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Install / uninstall
+        - Inspect
+        - PE/PDB diff
+        - Source mapping
+        - APK diff
+        - PPC diff
+        - Trace
+        - Updates
+        - Manual / docs
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: tried
+    attributes:
+      label: What were you trying to do?
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: What happened?
+      description: Exact error text helps.
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: What would make it better?
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety
+      options:
+        - label: I did not include game ROMs, proprietary binaries or personal data.
+          required: true
+        - label: This is not a security vulnerability.
+          required: true

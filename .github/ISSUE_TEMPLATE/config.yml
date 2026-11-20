@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security report
+    url: https://github.com/Reddgen/reverse-update-studio/security/policy
+    about: Do not open a public issue for vulnerabilities.
+  - name: Manual
+    url: https://github.com/Reddgen/reverse-update-studio/blob/main/MANUAL.md
+    about: Step-by-step setup and usage.

@@ -1,171 +1,146 @@
 ﻿# Reverse Update Studio
 
-Local-first binary release analysis for Windows builds, APKs and PowerPC ELF
-files. Compare two releases, find changed functions, map them to source lines,
-and trace unknown paths.
+[![CI](https://github.com/Reddgen/reverse-update-studio/actions/workflows/ci.yml/badge.svg)](https://github.com/Reddgen/reverse-update-studio/actions/workflows/ci.yml)
+[![Windows Launcher](https://github.com/Reddgen/reverse-update-studio/actions/workflows/windows.yml/badge.svg)](https://github.com/Reddgen/reverse-update-studio/actions/workflows/windows.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Release](https://img.shields.io/github/v/release/Reddgen/reverse-update-studio)](https://github.com/Reddgen/reverse-update-studio/releases)
+
+Local-first release analysis for compiled software. Compare two builds, find
+changed functions, map them to source lines, trace unknown paths, and verify
+update packages.
+
+It is a workbench, not a magic reverse-engineering button.
+
+![Trace view](docs/images/trace.png)
 
 ## Why this exists
 
-A personal project by **Reddgen** — a regular tinkerer and music maker who
-started by watching update videos and asking how an old build hands off to a new
-one. The tool follows that handoff: match past and recent builds, map what is
-known, and give the unknown parts stable IDs. Read
-[How this started](ORIGIN.md).
+A personal project by **Reddgen**, a regular tinkerer and music maker who kept
+asking how an old build hands off to a new one.
 
-Music: [yelledbox.com](https://yelledbox.com)
-## How it is different
+Read [How this started](ORIGIN.md). Music: [yelledbox.com](https://yelledbox.com).
 
-It is not “the best reverse-engineering tool.” It is a local workbench that
-connects release diff, source mapping, APK method diff, path tracing and update
-verification in one place.
-
-Other tools are deeper or more mature in specific areas:
-
-- Ghidra/IDA for interactive reverse engineering;
-- BinDiff/Diaphora for advanced function matching;
-- VirusTotal for reputation;
-- TUF for update security.
-
-See [How this is different](docs/DIFFERENCES.md).
 ## What it does
 
-- **PE/PDB Release Diff** â€” compare two Windows builds; matched, changed,
-  removed, added functions.
-- **Source mapping** â€” PDB file/line plus optional *Open in editor*.
-- **APK Diff** â€” compare DEX classes/methods with normalized instructions.
-- **PPC Diff** â€” GameCube ELF + Ghidra CSV comparison.
-- **Inspect** â€” PE, ELF, Mach-O, APK, IPA, JAR, WASM, ZIP.
-- **Trace** â€” match a path against a library; unknown runs get deterministic
-  puzzle IDs and a priority score.
-- **Updates** â€” AES-256-GCM payloads, Ed25519 manifests, chained apply/rollback.
+| Feature | What it means |
+|---|---|
+| **PE/PDB Release Diff** | compare two Windows builds: matched, changed, removed, added functions |
+| **Source mapping** | PDB file/line, plus optional Open in editor |
+| **APK Diff** | compare DEX classes and methods with normalized instructions |
+| **PPC Diff** | GameCube/PPC ELF plus Ghidra CSV comparison |
+| **Inspect** | PE, ELF, Mach-O, APK, IPA, JAR, WASM, ZIP |
+| **Trace** | match a path library; unknown runs get stable puzzle IDs and a priority score |
+| **Updates** | AES-256-GCM payloads, Ed25519 manifests, chained apply and rollback |
+| **Jobs** | background work, persistent history, CSV/JSON export |
 
-It does **not** run games, emulate consoles, or turn a game into a native app.
+It does **not** run games, emulate consoles, bypass DRM or anti-cheat, or turn a
+game into a native app.
 
 ## Download
 
-Releases: https://github.com/Reddgen/reverse-update-studio/releases/tag/v0.2.0
+[Latest release](https://github.com/Reddgen/reverse-update-studio/releases/latest)
 
 | Platform | File |
 |---|---|
 | Windows | `Reverse_Update_Studio_Windows_Portable_0.2.0.zip` |
 | Linux | `Reverse_Update_Studio-x86_64.AppImage` |
+| CI launcher | `ReverseUpdateStudio.exe` |
 | Source | `Reverse_Update_Studio_Source_v0.2.0.zip` |
+| Licenses | `RU-Licenses.zip` |
 
 Verify with the accompanying `.sha256` files.
-## Windows
 
-Download the portable ZIP from Releases, extract it and run:
+### Windows
 
-```text
-Setup.cmd
-```
+1. Extract the ZIP.
+2. Run `Setup.cmd`.
+3. Choose `Y`.
 
-Setup is per-user and installs to:
+Installs per-user to `%LOCALAPPDATA%\ReverseUpdateStudio` and creates Desktop and
+Start Menu entries.
 
-```text
-%LOCALAPPDATA%\ReverseUpdateStudio
-```
-
-It creates Desktop and Start Menu entries and an uninstaller.
-
-The current release is development-signed only. Windows may show an unknown
+The release is **development-signed only**, so Windows may show an unknown
 publisher warning. See [SIGNING.md](SIGNING.md).
 
-## Run from source
-
-Requirements:
-
-- Python 3.10+
-- `pip install -r studio/requirements.txt`
+## Quick start from source
 
 ```bash
-python cli.py version
+pip install -r studio/requirements.txt
 python cli.py doctor
 python cli.py serve --port 8765 --open
 ```
 
-Then open:
+Open <http://127.0.0.1:8765/>.
 
-```text
-http://127.0.0.1:8765/
-```
+## What it is compared with
 
-## CLI
+| Tool | Different because |
+|---|---|
+| `git diff` | source only; this works on compiled builds |
+| Ghidra / IDA | deeper interactive RE; this is a narrow release workflow |
+| BinDiff / Diaphora | more mature matching; this integrates source, APK, trace and updates |
+| VirusTotal | reputation service; this shows code-level changes |
+| `bsdiff` / `xdelta` | byte diff; this is function-level |
+| `jadx` / `apktool` | decompiled Java/resources; this compares DEX methods |
+| TUF | mature update security; this is a small local update engine |
 
-```text
-reverse-update inspect file.apk
-reverse-update diff --a BUILDA --b BUILDB --outdir OUT
-reverse-update ppc-diff --elf-a A.elf --csv-a A.csv --elf-b B.elf --csv-b B.csv --outdir OUT
-reverse-update apk-diff --a old.apk --b new.apk --outdir OUT
-reverse-update path-trace --db traces.sqlite --nodes "LoadConfig,ResolvePath"
-reverse-update update-verify --package update.rupkg --public pub.pem --master master.key
-reverse-update update-apply --package update.rupkg --target install --public pub.pem --master master.key
-reverse-update update-rollback --target install
-```
+Full comparison: [docs/DIFFERENCES.md](docs/DIFFERENCES.md).
 
-## Linux
+## Status
 
-A source-based tarball and AppImage build script are in
-[linux/](linux/). The AppImage must be built on Linux:
+- Windows: tested on Windows 10 and 11, including a clean non-admin PC.
+- Linux: AppImage builds in CI; runtime testing is still needed.
+- APK: method-level diff, not full decompilation.
+- PPC: experimental.
+- Signing: development self-signed only. CA/SignPath pending.
+- Update system: demo payloads; production full-app updates pending.
 
-```bash
-./linux/build_appimage.sh
-```
-
-## Tests
-
-```bash
-python -m unittest discover -s tests -p "test_*.py"
-```
-
-The APK smoke test needs a real APK:
-
-```bash
-python tests/smoke.py --base http://127.0.0.1:8765 --apk-a app.apk --apk-b app.apk
-```
+See [RELEASE_STATUS.md](RELEASE_STATUS.md).
 
 ## Documentation
 
-- [Full step-by-step manual](MANUAL.md)\n- [Manual translations](docs/manual/README.md)\n- [Tutorial](TUTORIAL.md)
+- [Full step-by-step manual](MANUAL.md)
+- [Manual translations](docs/manual/README.md)
+- [Tutorial](TUTORIAL.md)
 - [CLI](CLI.md)
 - [Format support](FORMAT_SUPPORT.md)
 - [Update system](UPDATE_SYSTEM.md)
 - [Path tracing](PATH_TRACE.md)
-- [Signing](SIGNING.md)\n- [SignPath application notes](SIGNPATH.md)
-- [Release status](RELEASE_STATUS.md)\n- [Acknowledgements](ACKNOWLEDGEMENTS.md)\n- [Plain-language concepts](docs/CONCEPTS.md)\n- [How this is different](docs/DIFFERENCES.md)\n- [Acceptable use and ethics](ETHICS.md)
+- [Plain-language concepts](docs/CONCEPTS.md)
+- [How this is different](docs/DIFFERENCES.md)
+- [Signing](SIGNING.md)
+- [SignPath notes](SIGNPATH.md)
+- [Acknowledgements](ACKNOWLEDGEMENTS.md)
+- [Acceptable use and ethics](ETHICS.md)\n- [Roadmap](ROADMAP.md)\n- [Contributing](CONTRIBUTING.md)\n- [Support](SUPPORT.md)
 
-## Security
+## Development
 
-- Binds to `127.0.0.1` by default.
-- LAN mode requires a PIN.
-- No files are uploaded unless you use the Upload button.
-- Update payloads are encrypted and manifests are signed.
-- Do not use the demo keys from old packages in production.
+```bash
+python -m unittest discover -s tests -p "test_*.py" -v
+```
 
-Report security issues privately before opening a public issue.
+CI runs on Windows and Ubuntu for every push.
+
+Good first issues are labeled `good first issue`. Feedback can be submitted with
+the **Feedback** issue form.
+
+## Credits
+
+Built with Ghidra, LIEF, androguard, Capstone, pefile, RomPatcher.js, REA,
+Python, Node.js and Temurin. Full license texts are in
+[LICENSES/](LICENSES/); notices are in
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 ## Support
 
-If this project saves you time:
+Optional: <https://buymeacoffee.com/yelledbox>
 
-https://buymeacoffee.com/yelledbox
+Donations do not buy priority support or change the MIT license.
 
-Donations are optional. They do not buy priority support or change the MIT
-license.
 ## License
 
 MIT for original code. See [LICENSE](LICENSE) and
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
-No game data, ROMs, ISOs, PDBs, or proprietary binaries are included.
-
-
-
-
-
-
-
-
-
-
+No game ROMs, ISOs, PDBs or proprietary binaries are included.
 
