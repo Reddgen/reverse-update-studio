@@ -18,6 +18,17 @@ and trace unknown paths.
 
 It does **not** run games, emulate consoles, or turn a game into a native app.
 
+## Download
+
+Releases: https://github.com/Reddgen/reverse-update-studio/releases/tag/v0.2.0
+
+| Platform | File |
+|---|---|
+| Windows | `Reverse_Update_Studio_Windows_Portable_0.2.0.zip` |
+| Linux | `Reverse_Update_Studio-x86_64.AppImage` |
+| Source | `Reverse_Update_Studio_Source_v0.2.0.zip` |
+
+Verify with the accompanying `.sha256` files.
 ## Windows
 
 Download the portable ZIP from Releases, extract it and run:
@@ -124,4 +135,5 @@ MIT for original code. See [LICENSE](LICENSE) and
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 No game data, ROMs, ISOs, PDBs, or proprietary binaries are included.
+
 
